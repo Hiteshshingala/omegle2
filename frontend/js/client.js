@@ -33,6 +33,7 @@ const swapCameraBtn = document.getElementById('swapCameraBtn');
 const settingsBtn = document.getElementById('settingsBtn');
 const screenShareBtn = document.getElementById('screenShareBtn');
 const homeBtn = document.getElementById('homeBtn');
+const endButton = document.getElementById('endButton');
 const settings = document.getElementById('settings');
 const settingsCloseBtn = document.getElementById('settingsCloseBtn');
 const audioSource = document.getElementById('audioSource');
@@ -188,6 +189,7 @@ const tooltips = [
     { element: chatOpenBtn, text: 'Toggle chat', position: 'top' },
     { element: settingsBtn, text: 'Toggle settings', position: 'top' },
     { element: homeBtn, text: 'Go to home page', position: 'top' },
+    { element: endButton, text: 'End to call', position: 'top' },
     //...
 ];
 
@@ -922,6 +924,9 @@ function handleEvents() {
     homeBtn.onclick = () => {
         endCall();
     };
+    endButton.onclick = () => {
+        endCall2();
+    };
 }
 
 function showWaitingUser() {
@@ -1117,17 +1122,16 @@ function getVideoConstraints(deviceId = false) {
 }
 
 function endCall() {
-    // signalingSocket.disconnect();
     sendToServer('disconnectCall', {
         roomId: roomId,
         peerName: peerName,
     })
     joinToChannel();
-    // if (surveyURL) {
-    //     giveMeFeedback();
-    // } else {
-    //     redirectOnLeave();
-    // }
+}
+
+function endCall2() {
+    signalingSocket.disconnect();
+    window.location.href = window.location.origin;
 }
 
 function giveMeFeedback() {
