@@ -34,6 +34,7 @@ const settingsBtn = document.getElementById('settingsBtn');
 const screenShareBtn = document.getElementById('screenShareBtn');
 const homeBtn = document.getElementById('homeBtn');
 const endButton = document.getElementById('endButton');
+const initEndButton = document.getElementById('initEndButton');
 const settings = document.getElementById('settings');
 const settingsCloseBtn = document.getElementById('settingsCloseBtn');
 const audioSource = document.getElementById('audioSource');
@@ -189,7 +190,8 @@ const tooltips = [
     { element: chatOpenBtn, text: 'Toggle chat', position: 'top' },
     { element: settingsBtn, text: 'Toggle settings', position: 'top' },
     { element: homeBtn, text: 'Go to home page', position: 'top' },
-    { element: endButton, text: 'End to call', position: 'top' },
+    { element: endButton, text: 'End call', position: 'top' },
+    { element: initEndButton, text: 'End call', position: 'top' },
     //...
 ];
 
@@ -556,7 +558,12 @@ function setupLocalMedia(callback, errorBack) {
 
     navigator.mediaDevices
         .getUserMedia({
-            audio: audioConstraints,
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true,
+                sampleRate: 48000,
+            },
             video: videoConstraints,
         })
         .then((stream) => {
@@ -925,6 +932,9 @@ function handleEvents() {
         endCall();
     };
     endButton.onclick = () => {
+        endCall2();
+    };
+    initEndButton.onclick = () => {
         endCall2();
     };
 }
