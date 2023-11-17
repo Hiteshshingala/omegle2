@@ -17,12 +17,12 @@ const peerName = window.localStorage.name; //new URLSearchParams(window.location
 
 const loadingDivContainer = document.getElementById('loadingDivContainer');
 const waitingDivContainer = document.getElementById('waitingDivContainer');
-const copyRoomBtn = document.getElementById('copyRoomBtn');
-const shareRoomBtn = document.getElementById('shareRoomBtn');
+// const copyRoomBtn = document.getElementById('copyRoomBtn');
+// const shareRoomBtn = document.getElementById('shareRoomBtn');
 const initHideMeBtn = document.getElementById('initHideMeBtn');
 const initAudioBtn = document.getElementById('initAudioBtn');
 const initVideoBtn = document.getElementById('initVideoBtn');
-const initScreenShareBtn = document.getElementById('initScreenShareBtn');
+// const initScreenShareBtn = document.getElementById('initScreenShareBtn');
 const initSettingsBtn = document.getElementById('initSettingsBtn');
 const initHomeBtn = document.getElementById('initHomeBtn');
 const buttonsBar = document.getElementById('buttonsBar');
@@ -31,7 +31,7 @@ const audioBtn = document.getElementById('audioBtn');
 const videoBtn = document.getElementById('videoBtn');
 const swapCameraBtn = document.getElementById('swapCameraBtn');
 const settingsBtn = document.getElementById('settingsBtn');
-const screenShareBtn = document.getElementById('screenShareBtn');
+// const screenShareBtn = document.getElementById('screenShareBtn');
 const homeBtn = document.getElementById('homeBtn');
 const endButton = document.getElementById('endButton');
 const initEndButton = document.getElementById('initEndButton');
@@ -174,19 +174,19 @@ let surveyURL = false;
 let redirectURL = false;
 
 const tooltips = [
-    { element: shareRoomBtn, text: 'Share room URL', position: 'top' },
-    { element: copyRoomBtn, text: 'Copy and share room URL', position: 'top' },
+    // { element: shareRoomBtn, text: 'Share room URL', position: 'top' },
+    // { element: copyRoomBtn, text: 'Copy and share room URL', position: 'top' },
     { element: initHideMeBtn, text: 'Hide myself', position: 'top' },
     { element: initVideoBtn, text: 'Toggle video', position: 'top' },
     { element: initAudioBtn, text: 'Toggle audio', position: 'top' },
-    { element: initScreenShareBtn, text: 'Toggle screen sharing', position: 'top' },
+    // { element: initScreenShareBtn, text: 'Toggle screen sharing', position: 'top' },
     { element: initSettingsBtn, text: 'Toggle settings', position: 'top' },
     { element: initHomeBtn, text: 'Go to home page', position: 'top' },
     { element: hideMeBtn, text: 'Hide myself', position: 'top' },
     { element: videoBtn, text: 'Toggle video', position: 'top' },
     { element: audioBtn, text: 'Toggle audio', position: 'top' },
     { element: swapCameraBtn, text: 'Swap camera', position: 'top' },
-    { element: screenShareBtn, text: 'Toggle screen sharing', position: 'top' },
+    // { element: screenShareBtn, text: 'Toggle screen sharing', position: 'top' },
     { element: chatOpenBtn, text: 'Toggle chat', position: 'top' },
     { element: settingsBtn, text: 'Toggle settings', position: 'top' },
     { element: homeBtn, text: 'Go to home page', position: 'top' },
@@ -637,6 +637,7 @@ function setLocalMedia(stream) {
     console.log('Access granted to audio/video');
     localMediaStream = stream;
     const myVideoWrap = document.createElement('div');
+    const videoElDiv = document.createElement('div');
     const myLocalMedia = document.createElement('video');
     const myVideoHeader = document.createElement('div');
     const myVideoFooter = document.createElement('div');
@@ -668,6 +669,8 @@ function setLocalMedia(stream) {
     myVideoHeader.appendChild(myVideoRotateBtn);
     myVideoHeader.appendChild(myAudioStatusIcon);
     myVideoFooter.appendChild(myVideoPeerName);
+    videoElDiv.id = 'videoElDiv';
+    videoElDiv.className = 'videoElDiv';
     myLocalMedia.id = 'myVideo';
     myLocalMedia.className = 'mirror';
     myLocalMedia.playsInline = true;
@@ -682,7 +685,8 @@ function setLocalMedia(stream) {
     myVideoWrap.appendChild(myVideoFooter);
     myVideoWrap.appendChild(myVideoAvatarImage);
     myVideoWrap.appendChild(myLocalMedia);
-    document.body.appendChild(myVideoWrap);
+    videoElDiv.appendChild(myVideoWrap);
+    document.body.appendChild(videoElDiv);
     logStreamSettingsInfo('localMediaStream', localMediaStream);
     attachMediaStream(myLocalMedia, localMediaStream);
     handlePictureInPicture(myVideoPiPBtn, myLocalMedia);
@@ -712,6 +716,8 @@ function setRemoteMedia(stream, peers, peerId) {
     const remoteVideoRotateBtn = document.createElement('button');
     const remoteAudioStatusIcon = document.createElement('button');
     const remoteVideoAvatarImage = document.createElement('img');
+    const videoElDiv = document.getElementById('videoElDiv');
+    debugger
     remoteVideoHeader.id = peerId + '_remoteVideoHeader';
     remoteVideoHeader.className = 'videoHeader animate__animated animate__fadeInDown animate__faster';
     remoteVideoFooter.id = peerId + '_remoteVideoFooter';
@@ -746,7 +752,8 @@ function setRemoteMedia(stream, peers, peerId) {
     remoteVideoWrap.appendChild(remoteVideoFooter);
     remoteVideoWrap.appendChild(remoteVideoAvatarImage);
     remoteVideoWrap.appendChild(remoteMedia);
-    document.body.appendChild(remoteVideoWrap);
+    videoElDiv.appendChild(remoteVideoWrap);
+    // document.body.appendChild(remoteVideoWrap);
     attachMediaStream(remoteMedia, remoteMediaStream);
     handleFullScreen(remoteFullScreenBtn, remoteVideoWrap, remoteMedia);
     handlePictureInPicture(remoteVideoPiPBtn, remoteMedia);
@@ -776,15 +783,15 @@ function handleEvents() {
     initHomeBtn.onclick = () => {
         endCall();
     };
-    copyRoomBtn.onclick = () => {
-        copyRoom();
-    };
+    // copyRoomBtn.onclick = () => {
+    //     copyRoom();
+    // };
     if (navigator.share) {
-        shareRoomBtn.onclick = () => {
-            shareRoom();
-        };
+        // shareRoomBtn.onclick = () => {
+        //     shareRoom();
+        // };
     } else {
-        elemDisplay(shareRoomBtn, false);
+        // elemDisplay(shareRoomBtn, false);
     }
     initHideMeBtn.onclick = () => {
         toggleHideMe();
@@ -808,15 +815,15 @@ function handleEvents() {
         setVideoStatus(!localMediaStream.getVideoTracks()[0].enabled, e);
     };
     if (!isMobileDevice && (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia)) {
-        initScreenShareBtn.onclick = async () => {
-            await toggleScreenSharing();
-        };
-        screenShareBtn.onclick = async () => {
-            await toggleScreenSharing();
-        };
+        // initScreenShareBtn.onclick = async () => {
+        //     await toggleScreenSharing();
+        // };
+        // screenShareBtn.onclick = async () => {
+        //     await toggleScreenSharing();
+        // };
     } else {
-        elemDisplay(initScreenShareBtn, false);
-        elemDisplay(screenShareBtn, false);
+        // elemDisplay(initScreenShareBtn, false);
+        // elemDisplay(screenShareBtn, false);
     }
     navigator.mediaDevices.enumerateDevices().then((devices) => {
         const videoInput = devices.filter((device) => device.kind === 'videoinput');
@@ -1014,8 +1021,8 @@ async function toggleScreenSharing() {
             setScreenStatus(isScreenStreaming);
             myVideo.classList.toggle('mirror');
             myVideo.style.objectFit = isScreenStreaming || config.keepAspectRatio ? 'contain' : 'cover';
-            initScreenShareBtn.className = isScreenStreaming ? className.screenOff : className.screenOn;
-            screenShareBtn.className = isScreenStreaming ? className.screenOff : className.screenOn;
+            // initScreenShareBtn.className = isScreenStreaming ? className.screenOff : className.screenOn;
+            // screenShareBtn.className = isScreenStreaming ? className.screenOff : className.screenOn;
             if (!isScreenStreaming && isMyVideoActiveBefore) videoBtn.click();
         }
     } catch (err) {
