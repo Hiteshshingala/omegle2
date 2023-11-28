@@ -37,11 +37,15 @@ const createRooms = (userId) => {
     return newRoom;
 }
 
-const getAvailableRoom = async () => {
+const getAvailableRoom = async (lastRoomId) => {
     let availRooms = rooms.filter(obj => obj.isAvailable === true);
     const instantAvailRooms = availRooms.filter(obj => obj.occupants === 1);
     if(instantAvailRooms && instantAvailRooms.length > 0) {
         availRooms = instantAvailRooms;
+    }
+    const excludeLastRoom = availRooms.filter(obj => obj.roomId !== lastRoomId);
+    if(excludeLastRoom && excludeLastRoom.length > 0) {
+        availRooms = excludeLastRoom;
     }
     const random = Math.floor(Math.random() * availRooms.length);
     if(availRooms && availRooms.length > 0){

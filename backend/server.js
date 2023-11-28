@@ -83,8 +83,9 @@ app.get('/', (req, res) => {
     return res.sendFile(htmlHome);
 });
 
-app.get('/roomId', async (req, res) => {
-    const room = await rooms.getAvailableRoom();
+app.get('/roomId/:lastRoomId', async (req, res) => {
+    const lastRoomId = req.params.lastRoomId;
+    const room = await rooms.getAvailableRoom(lastRoomId);
     res.send(room);
     return 
 });

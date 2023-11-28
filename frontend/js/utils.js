@@ -151,7 +151,7 @@ function handleBodyEvents() {
         if (buttonsBar.style.display == 'none' && waitingDivContainer.style.display == 'none') {
             toggleClassElements('videoHeader', true);
             elemDisplay(buttonsBar, true);
-            animateCSS(buttonsBar, 'fadeInUp');
+            // animateCSS(buttonsBar, 'fadeInUp');
         }
     };
 }
@@ -159,9 +159,9 @@ function handleBodyEvents() {
 function checkElements() {
     if (buttonsBar.style.display != 'none') {
         toggleClassElements('videoHeader', false);
-        animateCSS(buttonsBar, 'fadeOutDown').then((msg) => {
-            elemDisplay(buttonsBar, false);
-        });
+        // animateCSS(buttonsBar, 'fadeOutDown').then((msg) => {
+        //     elemDisplay(buttonsBar, false);
+        // });
     }
     setTimeout(checkElements, 20000);
 }

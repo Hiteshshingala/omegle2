@@ -19,14 +19,14 @@ const loadingDivContainer = document.getElementById('loadingDivContainer');
 const waitingDivContainer = document.getElementById('waitingDivContainer');
 // const copyRoomBtn = document.getElementById('copyRoomBtn');
 // const shareRoomBtn = document.getElementById('shareRoomBtn');
-const initHideMeBtn = document.getElementById('initHideMeBtn');
+// const initHideMeBtn = document.getElementById('initHideMeBtn');
 const initAudioBtn = document.getElementById('initAudioBtn');
 const initVideoBtn = document.getElementById('initVideoBtn');
 // const initScreenShareBtn = document.getElementById('initScreenShareBtn');
 const initSettingsBtn = document.getElementById('initSettingsBtn');
 const initHomeBtn = document.getElementById('initHomeBtn');
 const buttonsBar = document.getElementById('buttonsBar');
-const hideMeBtn = document.getElementById('hideMeBtn');
+// const hideMeBtn = document.getElementById('hideMeBtn');
 const audioBtn = document.getElementById('audioBtn');
 const videoBtn = document.getElementById('videoBtn');
 const swapCameraBtn = document.getElementById('swapCameraBtn');
@@ -176,13 +176,13 @@ let redirectURL = false;
 const tooltips = [
     // { element: shareRoomBtn, text: 'Share room URL', position: 'top' },
     // { element: copyRoomBtn, text: 'Copy and share room URL', position: 'top' },
-    { element: initHideMeBtn, text: 'Hide myself', position: 'top' },
+    // { element: initHideMeBtn, text: 'Hide myself', position: 'top' },
     { element: initVideoBtn, text: 'Toggle video', position: 'top' },
     { element: initAudioBtn, text: 'Toggle audio', position: 'top' },
     // { element: initScreenShareBtn, text: 'Toggle screen sharing', position: 'top' },
     { element: initSettingsBtn, text: 'Toggle settings', position: 'top' },
     { element: initHomeBtn, text: 'Go to home page', position: 'top' },
-    { element: hideMeBtn, text: 'Hide myself', position: 'top' },
+    // { element: hideMeBtn, text: 'Hide myself', position: 'top' },
     { element: videoBtn, text: 'Toggle video', position: 'top' },
     { element: audioBtn, text: 'Toggle audio', position: 'top' },
     { element: swapCameraBtn, text: 'Swap camera', position: 'top' },
@@ -287,8 +287,9 @@ function handleError(error) {
 
 function joinToChannel() {
     // getRoomId();
+    const lastRoomId =  localStorage.getItem('lastRoomId') || 'not found';
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/roomId', true);
+    xhr.open('GET', `/roomId/${lastRoomId}`, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Successful response
@@ -346,7 +347,7 @@ function handleAddPeer(config) {
     }
 
     elemDisplay(buttonsBar, true);
-    animateCSS(buttonsBar, 'fadeInUp');
+    // animateCSS(buttonsBar, 'fadeInUp');
 
     const peerConnection = new RTCPeerConnection({ iceServers: iceServers });
     peerConnections[peerId] = peerConnection;
@@ -514,7 +515,13 @@ function handleIceCandidate(config) {
 function handleDisconnect() {
     console.log('Disconnected from signaling server');
     for (let peerId in peerMediaElements) {
-        document.body.removeChild(peerMediaElements[peerId].parentNode);
+        const parentNode = peerMediaElements[peerId].parentNode;
+        if (parentNode) {
+            // document.body.removeChild(peerMediaElements[peerId].parentNode);
+            document.getElementById("videoElDiv").removeChild(parentNode);
+          } else {
+            console.error("Parent node not found.");
+          }
     }
     for (let peerId in peerConnections) {
         peerConnections[peerId].close();
@@ -527,8 +534,15 @@ function handleDisconnect() {
 function handleRemovePeer(config) {
     console.log('Signaling server said to remove peer:', config);
     const { peerId } = config;
-
-    if (peerId in peerMediaElements) document.body.removeChild(peerMediaElements[peerId].parentNode);
+    if (peerId in peerMediaElements) {
+        const parentNode = peerMediaElements[peerId].parentNode;
+        if (parentNode) {
+            // document.body.removeChild(peerMediaElements[peerId].parentNode);
+            document.getElementById("videoElDiv").removeChild(parentNode);
+        } else {
+            console.error("Parent node not found.");
+        }
+    }
     if (peerId in peerConnections) peerConnections[peerId].close();
 
     delete dataChannels[peerId];
@@ -665,7 +679,7 @@ function setLocalMedia(stream) {
     myVideoAvatarImage.setAttribute('src', image.camOff);
     myVideoAvatarImage.className = 'videoAvatarImage';
     myVideoHeader.appendChild(myFullScreenBtn);
-    myVideoHeader.appendChild(myVideoPiPBtn);
+    // myVideoHeader.appendChild(myVideoPiPBtn); // for hide picture in picture functionality
     myVideoHeader.appendChild(myVideoRotateBtn);
     myVideoHeader.appendChild(myAudioStatusIcon);
     myVideoFooter.appendChild(myVideoPeerName);
@@ -689,11 +703,11 @@ function setLocalMedia(stream) {
     document.body.appendChild(videoElDiv);
     logStreamSettingsInfo('localMediaStream', localMediaStream);
     attachMediaStream(myLocalMedia, localMediaStream);
-    handlePictureInPicture(myVideoPiPBtn, myLocalMedia);
+    // handlePictureInPicture(myVideoPiPBtn, myLocalMedia);
     handleVideoRotate(myVideoRotateBtn, myLocalMedia);
     handleFullScreen(myFullScreenBtn, myVideoWrap, myLocalMedia);
     setTippy(myFullScreenBtn, 'Toggle full screen', 'bottom');
-    setTippy(myVideoPiPBtn, 'Toggle picture in picture', 'bottom');
+    // setTippy(myVideoPiPBtn, 'Toggle picture in picture', 'bottom');
     setTippy(myVideoRotateBtn, 'Rotate video', 'bottom');
     setTippy(myAudioStatusIcon, 'Audio status', 'bottom');
     setTippy(myVideoPeerName, 'Username', 'top');
@@ -717,7 +731,6 @@ function setRemoteMedia(stream, peers, peerId) {
     const remoteAudioStatusIcon = document.createElement('button');
     const remoteVideoAvatarImage = document.createElement('img');
     const videoElDiv = document.getElementById('videoElDiv');
-    debugger
     remoteVideoHeader.id = peerId + '_remoteVideoHeader';
     remoteVideoHeader.className = 'videoHeader animate__animated animate__fadeInDown animate__faster';
     remoteVideoFooter.id = peerId + '_remoteVideoFooter';
@@ -736,7 +749,7 @@ function setRemoteMedia(stream, peers, peerId) {
     remoteVideoAvatarImage.src = image.camOff;
     remoteVideoAvatarImage.className = 'videoAvatarImage';
     remoteVideoHeader.appendChild(remoteFullScreenBtn);
-    remoteVideoHeader.appendChild(remoteVideoPiPBtn);
+    // remoteVideoHeader.appendChild(remoteVideoPiPBtn); // for hide picture in picture functionality
     remoteVideoHeader.appendChild(remoteVideoRotateBtn);
     remoteVideoHeader.appendChild(remoteAudioStatusIcon);
     remoteVideoFooter.appendChild(remoteVideoPeerName);
@@ -756,14 +769,14 @@ function setRemoteMedia(stream, peers, peerId) {
     // document.body.appendChild(remoteVideoWrap);
     attachMediaStream(remoteMedia, remoteMediaStream);
     handleFullScreen(remoteFullScreenBtn, remoteVideoWrap, remoteMedia);
-    handlePictureInPicture(remoteVideoPiPBtn, remoteMedia);
+    // handlePictureInPicture(remoteVideoPiPBtn, remoteMedia);
     handleVideoRotate(remoteVideoRotateBtn, remoteMedia);
     handleVideoZoom(remoteMedia, remoteVideoWrap, remoteVideoAvatarImage);
     setPeerVideoStatus(peerId, peerVideo);
     setPeerAudioStatus(peerId, peerAudio);
     if (peerVideo && peerScreen) setPeerScreenStatus(peerId, peerScreen);
     setTippy(remoteFullScreenBtn, 'Toggle full screen', 'bottom');
-    setTippy(remoteVideoPiPBtn, 'Toggle picture in picture', 'bottom');
+    // setTippy(remoteVideoPiPBtn, 'Toggle picture in picture', 'bottom');
     setTippy(remoteVideoRotateBtn, 'Rotate video', 'bottom');
     setTippy(remoteAudioStatusIcon, 'Audio status', 'bottom');
     setTippy(remoteVideoPeerName, 'Username', 'top');
@@ -793,9 +806,9 @@ function handleEvents() {
     } else {
         // elemDisplay(shareRoomBtn, false);
     }
-    initHideMeBtn.onclick = () => {
-        toggleHideMe();
-    };
+    // initHideMeBtn.onclick = () => {
+    //     toggleHideMe();
+    // };
     initAudioBtn.onclick = (e) => {
         setAudioStatus(!localMediaStream.getAudioTracks()[0].enabled, e);
     };
@@ -805,9 +818,9 @@ function handleEvents() {
     initSettingsBtn.onclick = () => {
         settingsBtn.click();
     };
-    hideMeBtn.onclick = () => {
-        toggleHideMe();
-    };
+    // hideMeBtn.onclick = () => {
+    //     toggleHideMe();
+    // };
     audioBtn.onclick = (e) => {
         setAudioStatus(!localMediaStream.getAudioTracks()[0].enabled, e);
     };
@@ -953,8 +966,8 @@ function showWaitingUser() {
 
 function toggleHideMe() {
     const isVideoWrapHidden = myVideoWrap.style.display == 'none';
-    hideMeBtn.className = isVideoWrapHidden ? className.user : className.userOff;
-    initHideMeBtn.className = isVideoWrapHidden ? className.user : className.userOff;
+    // hideMeBtn.className = isVideoWrapHidden ? className.user : className.userOff;
+    // initHideMeBtn.className = isVideoWrapHidden ? className.user : className.userOff;
     if (isVideoWrapHidden) {
         elemDisplay(myVideoWrap, true);
         animateCSS(myVideoWrap, 'fadeInLeft');
@@ -1143,6 +1156,7 @@ function endCall() {
         roomId: roomId,
         peerName: peerName,
     })
+    localStorage.setItem('lastRoomId', roomId);
     joinToChannel();
 }
 
