@@ -162,6 +162,18 @@ body {
     position: relative;
     height: 100vh;
 }
+/* Media query for desktop screens */
+@media (min-width: 768px) {
+    .videoElDiv {
+        width: 50vw;
+    }
+    .center {
+        left: 25% !important;
+    }
+    #buttonsBar {
+        width: 50vw;
+    }
+}
 .myVideoWrap {
     /* position: absolute;
     z-index: 5;

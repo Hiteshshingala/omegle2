@@ -20,17 +20,17 @@ const waitingDivContainer = document.getElementById('waitingDivContainer');
 // const copyRoomBtn = document.getElementById('copyRoomBtn');
 // const shareRoomBtn = document.getElementById('shareRoomBtn');
 // const initHideMeBtn = document.getElementById('initHideMeBtn');
-const initAudioBtn = document.getElementById('initAudioBtn');
-const initVideoBtn = document.getElementById('initVideoBtn');
+// const initAudioBtn = document.getElementById('initAudioBtn');
+// const initVideoBtn = document.getElementById('initVideoBtn');
 // const initScreenShareBtn = document.getElementById('initScreenShareBtn');
-const initSettingsBtn = document.getElementById('initSettingsBtn');
+// const initSettingsBtn = document.getElementById('initSettingsBtn');
 const initHomeBtn = document.getElementById('initHomeBtn');
 const buttonsBar = document.getElementById('buttonsBar');
 // const hideMeBtn = document.getElementById('hideMeBtn');
-const audioBtn = document.getElementById('audioBtn');
-const videoBtn = document.getElementById('videoBtn');
+// const audioBtn = document.getElementById('audioBtn');
+// const videoBtn = document.getElementById('videoBtn');
 const swapCameraBtn = document.getElementById('swapCameraBtn');
-const settingsBtn = document.getElementById('settingsBtn');
+// const settingsBtn = document.getElementById('settingsBtn');
 // const screenShareBtn = document.getElementById('screenShareBtn');
 const homeBtn = document.getElementById('homeBtn');
 const endButton = document.getElementById('endButton');
@@ -48,7 +48,7 @@ const switchKeepAspectRatio = document.getElementById('switchKeepAspectRatio');
 const switchPushToTalk = document.getElementById('switchPushToTalk');
 const sessionTime = document.getElementById('sessionTime');
 const chat = document.getElementById('chat');
-const chatOpenBtn = document.getElementById('chatOpenBtn');
+// const chatOpenBtn = document.getElementById('chatOpenBtn');
 const chatBody = document.getElementById('chatBody');
 const chatCloseBtn = document.getElementById('chatCloseBtn');
 const chatInput = document.getElementById('chatInput');
@@ -177,18 +177,18 @@ const tooltips = [
     // { element: shareRoomBtn, text: 'Share room URL', position: 'top' },
     // { element: copyRoomBtn, text: 'Copy and share room URL', position: 'top' },
     // { element: initHideMeBtn, text: 'Hide myself', position: 'top' },
-    { element: initVideoBtn, text: 'Toggle video', position: 'top' },
-    { element: initAudioBtn, text: 'Toggle audio', position: 'top' },
+    // { element: initVideoBtn, text: 'Toggle video', position: 'top' },
+    // { element: initAudioBtn, text: 'Toggle audio', position: 'top' },
     // { element: initScreenShareBtn, text: 'Toggle screen sharing', position: 'top' },
-    { element: initSettingsBtn, text: 'Toggle settings', position: 'top' },
+    // { element: initSettingsBtn, text: 'Toggle settings', position: 'top' },
     { element: initHomeBtn, text: 'Go to home page', position: 'top' },
     // { element: hideMeBtn, text: 'Hide myself', position: 'top' },
-    { element: videoBtn, text: 'Toggle video', position: 'top' },
-    { element: audioBtn, text: 'Toggle audio', position: 'top' },
-    { element: swapCameraBtn, text: 'Swap camera', position: 'top' },
+    // { element: videoBtn, text: 'Toggle video', position: 'top' },
+    // { element: audioBtn, text: 'Toggle audio', position: 'top' },
+    // { element: swapCameraBtn, text: 'Swap camera', position: 'top' },
     // { element: screenShareBtn, text: 'Toggle screen sharing', position: 'top' },
-    { element: chatOpenBtn, text: 'Toggle chat', position: 'top' },
-    { element: settingsBtn, text: 'Toggle settings', position: 'top' },
+    // { element: chatOpenBtn, text: 'Toggle chat', position: 'top' },
+    // { element: settingsBtn, text: 'Toggle settings', position: 'top' },
     { element: homeBtn, text: 'Go to home page', position: 'top' },
     { element: endButton, text: 'End call', position: 'top' },
     { element: initEndButton, text: 'End call', position: 'top' },
@@ -285,6 +285,14 @@ function handleError(error) {
     console.error('WebSocket connection error:', error);
 }
 
+function openChat() {
+    setAudioStatus(false);
+    if(!isMobileDevice) {
+        elemDisplay(chat, true);
+        document.documentElement.style.setProperty('--chat-width', '50%');
+    }
+}
+
 function joinToChannel() {
     // getRoomId();
     const lastRoomId =  localStorage.getItem('lastRoomId') || 'not found';
@@ -366,6 +374,7 @@ function handleAddPeer(config) {
     }
     handleBodyEvents();
     playSound('join');
+    openChat();
 }
 
 function roomIsBusy() {
@@ -809,24 +818,24 @@ function handleEvents() {
     // initHideMeBtn.onclick = () => {
     //     toggleHideMe();
     // };
-    initAudioBtn.onclick = (e) => {
-        setAudioStatus(!localMediaStream.getAudioTracks()[0].enabled, e);
-    };
-    initVideoBtn.onclick = (e) => {
-        setVideoStatus(!localMediaStream.getVideoTracks()[0].enabled, e);
-    };
-    initSettingsBtn.onclick = () => {
-        settingsBtn.click();
-    };
+    // initAudioBtn.onclick = (e) => {
+    //     setAudioStatus(!localMediaStream.getAudioTracks()[0].enabled, e);
+    // };
+    // initVideoBtn.onclick = (e) => {
+    //     setVideoStatus(!localMediaStream.getVideoTracks()[0].enabled, e);
+    // };
+    // initSettingsBtn.onclick = () => {
+    //     settingsBtn.click();
+    // };
     // hideMeBtn.onclick = () => {
     //     toggleHideMe();
     // };
-    audioBtn.onclick = (e) => {
-        setAudioStatus(!localMediaStream.getAudioTracks()[0].enabled, e);
-    };
-    videoBtn.onclick = (e) => {
-        setVideoStatus(!localMediaStream.getVideoTracks()[0].enabled, e);
-    };
+    // audioBtn.onclick = (e) => {
+    //     setAudioStatus(!localMediaStream.getAudioTracks()[0].enabled, e);
+    // };
+    // videoBtn.onclick = (e) => {
+    //     setVideoStatus(!localMediaStream.getVideoTracks()[0].enabled, e);
+    // };
     if (!isMobileDevice && (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia)) {
         // initScreenShareBtn.onclick = async () => {
         //     await toggleScreenSharing();
@@ -848,9 +857,9 @@ function handleEvents() {
             elemDisplay(swapCameraBtn, false);
         }
     });
-    settingsBtn.onclick = () => {
-        toggleSettings();
-    };
+    // settingsBtn.onclick = () => {
+    //     toggleSettings();
+    // };
     settingsCloseBtn.onclick = () => {
         toggleSettings();
     };
@@ -926,9 +935,9 @@ function handleEvents() {
             }
         };
     }
-    chatOpenBtn.onclick = () => {
-        toggleChat();
-    };
+    // chatOpenBtn.onclick = () => {
+    //     toggleChat();
+    // };
     chatCloseBtn.onclick = () => {
         toggleChat();
     };
@@ -1225,15 +1234,15 @@ function setAudioButtons(active, e = false) {
     localMediaStream.getAudioTracks()[0].enabled = active;
     if (e) e.target.className = active ? className.audioOn : className.audioOff;
     myAudioStatusIcon.className = active ? className.audioOn : className.audioOff;
-    audioBtn.className = active ? className.audioOn : className.audioOff;
-    initAudioBtn.className = active ? className.audioOn : className.audioOff;
+    // audioBtn.className = active ? className.audioOn : className.audioOff;
+    // initAudioBtn.className = active ? className.audioOn : className.audioOff;
 }
 
 function setVideoButtons(active, e = false) {
     localMediaStream.getVideoTracks()[0].enabled = active;
     if (e) e.target.className = active ? className.videoOn : className.videoOff;
-    videoBtn.className = active ? className.videoOn : className.videoOff;
-    initVideoBtn.className = active ? className.videoOn : className.videoOff;
+    // videoBtn.className = active ? className.videoOn : className.videoOff;
+    // initVideoBtn.className = active ? className.videoOn : className.videoOff;
     elemDisplay(myVideoAvatarImage, active ? false : true);
 }
 
