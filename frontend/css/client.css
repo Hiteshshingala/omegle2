@@ -626,3 +626,25 @@ z-index:
     7 settings
     8 chat
 */
+
+#newButtonBarForMobile {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    height: 4vh;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#newButtonBarForMobile button {
+    width: 50%;
+    background: #439fff;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .videoElDiv {
+        height: 95vh !important;
+    }
+}

@@ -157,12 +157,12 @@ function handleBodyEvents() {
 }
 
 function checkElements() {
-    if (buttonsBar.style.display != 'none') {
-        toggleClassElements('videoHeader', false);
+    // if (buttonsBar.style.display != 'none') {
+    //     toggleClassElements('videoHeader', false);
         // animateCSS(buttonsBar, 'fadeOutDown').then((msg) => {
         //     elemDisplay(buttonsBar, false);
         // });
-    }
+    // }
     setTimeout(checkElements, 20000);
 }
 

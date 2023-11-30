@@ -60,27 +60,32 @@ access to use this app.
 Wait user to join.
                 </pre>
                 <!-- <button id="shareRoomBtn" class="fas fa-share-nodes"></button>
-                <button id="copyRoomBtn" class="fas fa-copy"></button> -->
-                <!-- <button id="initHideMeBtn" class="fas fa-user"></button> -->
-                <!-- <button id="initVideoBtn" class="fas fa-video"></button>
-                <button id="initAudioBtn" class="fas fa-microphone"></button> -->
-                <!-- <button id="initScreenShareBtn" class="fas fa-desktop"></button> -->
-                <!-- <button id="initSettingsBtn" class="fas fa-ellipsis-vertical"></button> -->
+                <button id="copyRoomBtn" class="fas fa-copy"></button>
+                <button id="initHideMeBtn" class="fas fa-user"></button>
+                <button id="initVideoBtn" class="fas fa-video"></button>
+                <button id="initAudioBtn" class="fas fa-microphone"></button>
+                <button id="initScreenShareBtn" class="fas fa-desktop"></button>
+                <button id="initSettingsBtn" class="fas fa-ellipsis-vertical"></button>
                 <button id="initHomeBtn" class="fa fa-stop-circle" style="color:red"></button>
-                <button id="initEndButton" class="fas fa-xmark"></button>
+                <button id="initEndButton" class="fas fa-xmark"></button> -->
             </div>
         </div>
 
-        <div id="buttonsBar">
-            <!-- <button id="hideMeBtn" class="fas fa-user"></button> -->
-            <!-- <button id="videoBtn" class="fas fa-video"></button>
-            <button id="audioBtn" class="fas fa-microphone"></button> -->
-            <!-- <button id="swapCameraBtn" class="fas fa-camera-rotate"></button> -->
-            <!-- <button id="screenShareBtn" class="fas fa-desktop"></button> -->
-            <!-- <button id="chatOpenBtn" class="fas fa-comments"></button> -->
-            <!-- <button id="settingsBtn" class="fas fa-ellipsis-vertical"></button> -->
+        <!-- <div id="buttonsBar">
+            <button id="hideMeBtn" class="fas fa-user"></button>
+            <button id="videoBtn" class="fas fa-video"></button>
+            <button id="audioBtn" class="fas fa-microphone"></button>
+            <button id="swapCameraBtn" class="fas fa-camera-rotate"></button>
+            <button id="screenShareBtn" class="fas fa-desktop"></button>
+            <button id="chatOpenBtn" class="fas fa-comments"></button>
+            <button id="settingsBtn" class="fas fa-ellipsis-vertical"></button>
             <button id="homeBtn" class="fa fa-stop-circle" style="color:red"></button>
             <button id="endButton" class="fas fa-xmark"></button>
+        </div> -->
+
+        <div id="newButtonBarForMobile">
+            <button id="homeBtnForMobile" class="">Next</button>
+            <button id="endButtonForMobile" class="">Stop</button>
         </div>
 
         <div id="settings">
@@ -140,13 +145,16 @@ Wait user to join.
         <div id="chat" class="chat">
             <div class="header">
                 <span class="title">Chat</span>
-                <button id="chatCloseBtn" class="fas fa-times"></button>
+                <!-- <button id="chatCloseBtn" class="fas fa-times"></button> -->
             </div>
             <div class="body" id="chatBody"></div>
             <div class="footer">
-                <button id="stopBtn" class="fas fa-paper-plane">Stop</button>
+                <div class="buttons">
+                    <button id="nextBtn" class="nextBtn">Next</button>
+                    <button id="stopBtn" class="stopBtn">Stop</button>
+                </div>
                 <textarea id="chatInput" placeholder="Write a message..."></textarea>
-                <button id="chatSendBtn" class="fas fa-paper-plane"></button>
+                <button id="chatSendBtn" class="fas fa-paper-plane send-btn"></button>
             </div>
         </div>
     </body>

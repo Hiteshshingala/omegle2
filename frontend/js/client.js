@@ -24,17 +24,17 @@ const waitingDivContainer = document.getElementById('waitingDivContainer');
 // const initVideoBtn = document.getElementById('initVideoBtn');
 // const initScreenShareBtn = document.getElementById('initScreenShareBtn');
 // const initSettingsBtn = document.getElementById('initSettingsBtn');
-const initHomeBtn = document.getElementById('initHomeBtn');
-const buttonsBar = document.getElementById('buttonsBar');
+// const initHomeBtn = document.getElementById('initHomeBtn');
+// const buttonsBar = document.getElementById('buttonsBar');
 // const hideMeBtn = document.getElementById('hideMeBtn');
 // const audioBtn = document.getElementById('audioBtn');
 // const videoBtn = document.getElementById('videoBtn');
-const swapCameraBtn = document.getElementById('swapCameraBtn');
+// const swapCameraBtn = document.getElementById('swapCameraBtn');
 // const settingsBtn = document.getElementById('settingsBtn');
 // const screenShareBtn = document.getElementById('screenShareBtn');
-const homeBtn = document.getElementById('homeBtn');
-const endButton = document.getElementById('endButton');
-const initEndButton = document.getElementById('initEndButton');
+// const homeBtn = document.getElementById('homeBtn');
+// const endButton = document.getElementById('endButton');
+// const initEndButton = document.getElementById('initEndButton');
 const settings = document.getElementById('settings');
 const settingsCloseBtn = document.getElementById('settingsCloseBtn');
 const audioSource = document.getElementById('audioSource');
@@ -50,7 +50,12 @@ const sessionTime = document.getElementById('sessionTime');
 const chat = document.getElementById('chat');
 // const chatOpenBtn = document.getElementById('chatOpenBtn');
 const chatBody = document.getElementById('chatBody');
-const chatCloseBtn = document.getElementById('chatCloseBtn');
+const nextBtn = document.getElementById('nextBtn');
+const stopBtn = document.getElementById('stopBtn');
+const newButtonBarForMobile = document.getElementById('newButtonBarForMobile');
+const homeBtnForMobile = document.getElementById('homeBtnForMobile');
+const endButtonForMobile = document.getElementById('endButtonForMobile');
+// const chatCloseBtn = document.getElementById('chatCloseBtn');
 const chatInput = document.getElementById('chatInput');
 const chatSendBtn = document.getElementById('chatSendBtn');
 
@@ -181,7 +186,7 @@ const tooltips = [
     // { element: initAudioBtn, text: 'Toggle audio', position: 'top' },
     // { element: initScreenShareBtn, text: 'Toggle screen sharing', position: 'top' },
     // { element: initSettingsBtn, text: 'Toggle settings', position: 'top' },
-    { element: initHomeBtn, text: 'Go to home page', position: 'top' },
+    // { element: initHomeBtn, text: 'Go to home page', position: 'top' },
     // { element: hideMeBtn, text: 'Hide myself', position: 'top' },
     // { element: videoBtn, text: 'Toggle video', position: 'top' },
     // { element: audioBtn, text: 'Toggle audio', position: 'top' },
@@ -189,9 +194,9 @@ const tooltips = [
     // { element: screenShareBtn, text: 'Toggle screen sharing', position: 'top' },
     // { element: chatOpenBtn, text: 'Toggle chat', position: 'top' },
     // { element: settingsBtn, text: 'Toggle settings', position: 'top' },
-    { element: homeBtn, text: 'Go to home page', position: 'top' },
-    { element: endButton, text: 'End call', position: 'top' },
-    { element: initEndButton, text: 'End call', position: 'top' },
+    // { element: homeBtn, text: 'Go to home page', position: 'top' },
+    // { element: endButton, text: 'End call', position: 'top' },
+    // { element: initEndButton, text: 'End call', position: 'top' },
     //...
 ];
 
@@ -274,10 +279,19 @@ function handleConnect() {
             enumerateDevices();
             handleVideoWrapSize();
             getDocumentElementsById();
+            // showORHideBottonBar();
             handleEvents();
             showWaitingUser();
             joinToChannel();
         });
+    }
+}
+
+function showORHideBottonBar() {
+    if(isMobileDevice) {
+        elemDisplay(newButtonBarForMobile, true, 'flex');
+    } else {
+        elemDisplay(newButtonBarForMobile, false);
     }
 }
 
@@ -286,7 +300,8 @@ function handleError(error) {
 }
 
 function openChat() {
-    setAudioStatus(false);
+    // for audio of while first connection
+    // setAudioStatus(false);
     if(!isMobileDevice) {
         elemDisplay(chat, true);
         document.documentElement.style.setProperty('--chat-width', '50%');
@@ -354,7 +369,7 @@ function handleAddPeer(config) {
         return console.warn('Peer already connected', peerId);
     }
 
-    elemDisplay(buttonsBar, true);
+    // elemDisplay(buttonsBar, true);
     // animateCSS(buttonsBar, 'fadeInUp');
 
     const peerConnection = new RTCPeerConnection({ iceServers: iceServers });
@@ -373,6 +388,7 @@ function handleAddPeer(config) {
         elemDisplay(waitingDivContainer, false);
     }
     handleBodyEvents();
+    showORHideBottonBar();
     playSound('join');
     openChat();
 }
@@ -560,8 +576,8 @@ function handleRemovePeer(config) {
 
     if (!thereIsPeerConnections()) {
         elemDisplay(waitingDivContainer, true);
-        elemDisplay(buttonsBar, false);
-        elemDisplay(settings, false);
+        // elemDisplay(buttonsBar, false);
+        // elemDisplay(settings, false);
         elemDisplay(chat, false);
     }
 
@@ -802,7 +818,10 @@ function handleIncomingDataChannelMessage(config) {
 }
 
 function handleEvents() {
-    initHomeBtn.onclick = () => {
+    homeBtnForMobile.onclick = () => {
+        endCall();
+    };
+    nextBtn.onclick = () => {
         endCall();
     };
     // copyRoomBtn.onclick = () => {
@@ -847,16 +866,16 @@ function handleEvents() {
         // elemDisplay(initScreenShareBtn, false);
         // elemDisplay(screenShareBtn, false);
     }
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-        const videoInput = devices.filter((device) => device.kind === 'videoinput');
-        if (videoInput.length > 1 && isMobileDevice) {
-            swapCameraBtn.onclick = () => {
-                swapCamera();
-            };
-        } else {
-            elemDisplay(swapCameraBtn, false);
-        }
-    });
+    // navigator.mediaDevices.enumerateDevices().then((devices) => {
+    //     const videoInput = devices.filter((device) => device.kind === 'videoinput');
+    //     if (videoInput.length > 1 && isMobileDevice) {
+    //         swapCameraBtn.onclick = () => {
+    //             swapCamera();
+    //         };
+    //     } else {
+    //         elemDisplay(swapCameraBtn, false);
+    //     }
+    // });
     // settingsBtn.onclick = () => {
     //     toggleSettings();
     // };
@@ -938,9 +957,9 @@ function handleEvents() {
     // chatOpenBtn.onclick = () => {
     //     toggleChat();
     // };
-    chatCloseBtn.onclick = () => {
-        toggleChat();
-    };
+    // chatCloseBtn.onclick = () => {
+    //     toggleChat();
+    // };
     chatSendBtn.onclick = () => {
         sendMessage();
     };
@@ -957,13 +976,19 @@ function handleEvents() {
         }
         checkLineBreaks();
     };
-    homeBtn.onclick = () => {
-        endCall();
-    };
-    endButton.onclick = () => {
+    // homeBtn.onclick = () => {
+    //     endCall();
+    // };
+    // endButton.onclick = () => {
+    //     endCall2();
+    // };
+    // initEndButton.onclick = () => {
+    //     endCall2();
+    // };
+    stopBtn.onclick = () => {
         endCall2();
     };
-    initEndButton.onclick = () => {
+    endButtonForMobile.onclick = () => {
         endCall2();
     };
 }
@@ -1166,6 +1191,7 @@ function endCall() {
         peerName: peerName,
     })
     localStorage.setItem('lastRoomId', roomId);
+    elemDisplay(newButtonBarForMobile, false);
     joinToChannel();
 }
 

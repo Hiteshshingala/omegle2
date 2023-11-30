@@ -42,7 +42,7 @@
     font-weight: bold;
     color: white;
 }
-.chat .header button {
+.chat .header .send-btn {
     padding: 5px;
     float: right;
     border: none;
@@ -72,13 +72,13 @@
     position: absolute;
     padding: 10px;
     bottom: 0;
-    left: 0;
+    left: 70px;
     height: 20px;
-    width: 93%;
+    width: 77%;
     color: var(--text-color);
     background: var(--chat-bg);
     border: var(--border);
-    border-radius: var(--border-radius) 0% 0%;
+    /* border-radius: var(--border-radius) 0% 0%; */
     -webkit-transition: height 1s;
     -moz-transition: height 1s;
     -ms-transition: height 1s;
@@ -89,7 +89,7 @@
 .chat .footer textarea:focus {
     border: 1px solid #439fff;
 }
-.chat .footer button {
+.chat .footer .send-btn {
     position: absolute;
     bottom: 13px;
     right: 5px;
@@ -97,6 +97,19 @@
     float: right;
     background: transparent;
     color: #439fff;
+}
+.chat .footer .buttons {
+    position: absolute;
+    bottom: 0;
+    height: 41px;
+    display: grid;
+}
+.chat .footer .buttons button {
+    border: none;
+    background: #439fff;
+    color: white;
+    margin-top: 2px; 
+    width: 68px;
 }
 .chat .footer button:hover {
     color: var(--text-color);
