@@ -1,96 +1,100 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>Nekdy</title>
 
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-        <meta name="description"  content="Nekdy is a free online video chat. Talk to random strangers anonymously from the whole world and have a fun together."/>
-        
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Nekdy Random Video Chat - Nekdy.com" />
-        <meta property="og:description" content="Free WebRTC cam-2-cam video calls." />
-        <meta property="og:url" content="https://www.nekdy.com" />
-        <meta property="og:site_name" content="Nekdy" />
-        <meta property="og:image" content="https://c2c.mirotalk.com/images/logo.svg" /> <!-- Replace with our logo-->
+<head>
+    <title>Nekdy</title>
 
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:label1" content="Est. reading time" />
-        <meta name="twitter:data1" content="1 minute" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+    <meta name="description"
+        content="Nekdy is a free online video chat. Talk to random strangers anonymously from the whole world and have a fun together." />
 
-        <link rel="apple-touch-icon" href="../images/LWOT.png" />
-        <link rel="icon" type="image/x-icon" href="../images/LWOT.png" />
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-        
-        <link rel="stylesheet" href="../css/chat.css" />
-        <link rel="stylesheet" href="../css/client.css" />
-        <script async src="../js/umami.js"></script>
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nekdy Random Video Chat - Nekdy.com" />
+    <meta property="og:description" content="Free WebRTC cam-2-cam video calls." />
+    <meta property="og:url" content="https://www.nekdy.com" />
+    <meta property="og:site_name" content="Nekdy" />
+    <meta property="og:image" content="https://c2c.mirotalk.com/images/logo.svg" /> <!-- Replace with our logo-->
 
-        <!-- Bootstrap  : START -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <!-- Bootstrap  : END -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:label1" content="Est. reading time" />
+    <meta name="twitter:data1" content="1 minute" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <script defer src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8"></script>
-        <script defer src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
-        <script defer src="https://unpkg.com/@popperjs/core@2"></script>
-        <script defer src="https://unpkg.com/tippy.js@6"></script>
-        <script defer src="/socket.io/socket.io.js"></script>
-        <script defer src="../js/swal.js"></script>
-        <script defer src="../js/utils.js"></script>
-        <script defer src="../js/client.js"></script>
-    </head>
 
-    <body onload="initClient()"> <!-- onload="initClient()" -->
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        
-        <div class="container-fluid">
-            <div class="row align-items-start">
-              <div class="col-lg-6 col-sm-12">
-                <div class="row align-items-start">
-                    <div class="col col-md-12 col-lg-12" id="c_video_top" >
+    <link rel="apple-touch-icon" href="../images/LWOT.png" />
+    <link rel="icon" type="image/x-icon" href="../images/LWOT.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <link rel="stylesheet" href="../css/chat.css" />
+    <link rel="stylesheet" href="../css/client.css" />
+    <script async src="../js/umami.js"></script>
+
+    <!-- Bootstrap  : START -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap  : END -->
+
+    <script defer src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8"></script>
+    <script defer src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <script defer src="https://unpkg.com/@popperjs/core@2"></script>
+    <script defer src="https://unpkg.com/tippy.js@6"></script>
+    <script defer src="/socket.io/socket.io.js"></script>
+    <script defer src="../js/swal.js"></script>
+    <script defer src="../js/utils.js"></script>
+    <script defer src="../js/client.js"></script>
+</head>
+
+<body onload="initClient()"> <!-- onload="initClient()" -->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div class="container-fluid">
+        <div class="row align-items-start">
+            <div class="col-lg-6 col-sm-12">
+                <div class="row align-items-start top-video">
+                    <div class="col col-md-12 col-lg-12" id="c_video_top">
                         <div id="loadingDivContainer">
                             <div id="loadingDiv" class="center pulsate">
                                 <h1>Loading...</h1>
                                 <pre> Please allow camera & microphone access to use this app. </pre>
                             </div>
                         </div>
-        
+
                         <div id="waitingDivContainer" class="">
                             <div id="waitingDiv" class="center pulsate">
                                 <h1>Waiting...</h1>
                                 <pre> Wait user to join. </pre>
                             </div>
                         </div>
-        
-                        <div id="newButtonBarForMobile">
-                            <button id="homeBtnForMobile" class="">Next</button>
-                            <button id="endButtonForMobile" class="">Stop</button>
-                        </div>
+
                     </div>
                 </div>
-                <div class="row align-items-start">
+                <div class="row align-items-start bottom-video">
                     <div class="col col-md-12 col-lg-12" id="c_video_bottom">
 
                     </div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-sm-12" id="chat">
-                <div class="row align-items-start" style="height: 5vh;">
-                    <span class="title">Chat</span>
-                </div>
-                <div class="row align-items-start" id="chatBody" style="height: 85vh;">
-                    
-                </div>
-                <div class="row align-items-start"  style="height: 10vh;">
-                    
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-sm-12" id="chat">
+                    <div class="row align-items-start" style="height: 5vh;">
+                        <span class="title">Chat</span>
+                    </div>
+                    <div class="row align-items-start" id="chatBody" style="height: 85vh;">
+
+                    </div>
+                    <div class="row align-items-start" style="height: 10vh;">
+
                         <div class="col-md-2">
                             <div class="row">
                                 <button id="nextBtn" class="nextBtn">Next</button>
@@ -105,43 +109,6 @@
                         <div class="col-md-2">
                             <button id="chatSendBtn" class="nextBtn send-btn">Send</button>
                         </div>
-                    <!-- <div class="c_video_control">
-                        <div class="c_vc_buttons">
-                            <div class="c_vc_top">
-                                <button id="nextBtn" class="nextBtn">Next</button>
-                            </div>
-                            <div class="c_vc_bottom">
-                                <button id="stopBtn" class="stopBtn">Stop</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="c_chat_input">
-                        <textarea id="chatInput" class="chatInput" placeholder="Write a message..."></textarea>
-                    </div>
-                    <div class="c_chat_control">
-                        <button id="chatSendBtn" class="nextBtn send-btn">Send</button>
-                    </div> -->
-                </div>
-              </div>
-            </div>
-        </div>
-    
-    
-        <!--
-        <div class="c_split cs_left video_container" id="cs_left">
-            <div class="c_video_top" id="c_video_top">
-
-                <div id="loadingDivContainer">
-                    <div id="loadingDiv" class="center pulsate">
-                        <h1>Loading...</h1>
-                        <pre> Please allow camera & microphone access to use this app. </pre>
-                    </div>
-                </div>
-
-                <div id="waitingDivContainer" class="">
-                    <div id="waitingDiv" class="center pulsate">
-                        <h1>Waiting...</h1>
-                        <pre> Wait user to join. </pre>
                     </div>
                 </div>
 
@@ -149,135 +116,10 @@
                     <button id="homeBtnForMobile" class="">Next</button>
                     <button id="endButtonForMobile" class="">Stop</button>
                 </div>
-
-            </div>
-            <div class="c_video_bottom" id="c_video_bottom">
-
             </div>
         </div>
-          
-        <div class="c_split cs_right">
-            <div class="chat_container" id="chat">
-                <div class="c_chat_title">
-                    <span class="title">Chat</span>
-                </div>
-                <div class="c_chat_body" id="chatBody">
-    
-                </div>
-                <div class="c_chat_bottom">
-                    <div class="c_video_control">
-                        <div class="c_vc_buttons">
-                            <div class="c_vc_top">
-                                <button id="nextBtn" class="nextBtn">Next</button>
-                            </div>
-                            <div class="c_vc_bottom">
-                                <button id="stopBtn" class="stopBtn">Stop</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="c_chat_input">
-                        <textarea id="chatInput" class="chatInput" placeholder="Write a message..."></textarea>
-                    </div>
-                    <div class="c_chat_control">
-                        <button id="chatSendBtn" class="nextBtn send-btn">Send</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    -->
-    </body>
+    </div>
 
-    <!--
-    <body onload="initClient()">
-        <noscript>You need to enable JavaScript to run this app.</noscript>
+</body>
 
-        <div id="loadingDivContainer">
-            <div id="loadingDiv" class="center pulsate">
-                <h1>Loading...</h1>
-                <pre> Please allow camera & microphone access to use this app. </pre>
-            </div>
-        </div>
-
-        <div id="waitingDivContainer" class="">
-            <div id="waitingDiv" class="center pulsate">
-                <h1>Waiting...</h1>
-                <pre> Wait user to join. </pre>
-            </div>
-        </div>
-
-        <div id="newButtonBarForMobile">
-            <button id="homeBtnForMobile" class="">Next</button>
-            <button id="endButtonForMobile" class="">Stop</button>
-        </div>
-
-        <div id="settings">
-            <button id="settingsCloseBtn" class="fas fa-times"></button>
-            <label for="videoSource"><i class="fas fa-video"></i> Camera</label>
-            <select id="videoSource"></select>
-            <label><i class="fas fa-image"></i> Video quality</label>
-            <select id="videoQualitySelect">
-                <option value="default">Default</option>
-                <option value="qvga">QVGA</option>
-                <option value="vga">VGA</option>
-                <option value="hd">HD</option>
-                <option value="fhd">FULL HD</option>
-                <option value="2k">2K</option>
-                <option value="4k">4K</option>
-            </select>
-            <label><i class="fas fa-gauge"></i> Video frame rate</label>
-            <select id="videoFpsSelect">
-                <option value="default">Default</option>
-                <option value="60">60 fps</option>
-                <option value="30">30 fps</option>
-                <option value="15">15 fps</option>
-                <option value="5">5 fps</option>
-            </select>
-            <label for="audioSource"><i class="fas fa-microphone"></i> Microphone</label>
-            <select id="audioSource"></select>
-            <hr />
-            <table id="settingsTable">
-                <tr id="maxVideoQualityDiv">
-                    <td>
-                        <span> <i class="fas fa-star"></i> Best quality </span>
-                    </td>
-                    <td><input id="switchMaxVideoQuality" class="toggle" type="checkbox" /></td>
-                </tr>
-                <tr id="aspectRatioDiv">
-                    <td>
-                        <span> <i class="fas fa-display"></i> Aspect ratio </span>
-                    </td>
-                    <td><input id="switchKeepAspectRatio" class="toggle" type="checkbox" /></td>
-                </tr>
-                <tr id="pushToTalkDiv">
-                    <td>
-                        <span> <i class="fas fa-hand-pointer"></i> Push to talk </span>
-                    </td>
-                    <td><input id="switchPushToTalk" class="toggle" type="checkbox" /></td>
-                </tr>
-                <tr>
-                    <td>
-                        <span> <i class="fas fa-clock"></i> Session time </span>
-                    </td>
-                    <td><p id="sessionTime">0s</p></td>
-                </tr>
-            </table>
-            <hr />
-        </div>
-
-        <div id="chat" class="chat">
-            <div class="header">
-                <span class="title">Chat</span>
-            </div>
-            <div class="body" id="chatBody"></div>
-            <div class="footer">
-                <div class="buttons">
-                    <button id="nextBtn" class="nextBtn">Next</button>
-                    <button id="stopBtn" class="stopBtn">Stop</button>
-                </div>
-                <textarea id="chatInput" placeholder="Write a message..."></textarea>
-                <button id="chatSendBtn" class="nextBtn send-btn">Send</button>
-            </div>
-        </div>
-    </body>
--->
 </html>
