@@ -20,7 +20,7 @@
 .chat {
     z-index: 8;
     display: none;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     right: 0;
     width: var(--chat-width);
@@ -28,7 +28,8 @@
     background: var(--chat-bg);
     overflow: hidden;
     border: var(--border);
-    border-radius: var(--border-radius) 0% 0%;
+    border-radius: var(--border-radius);
+    margin-bottom: 25px;
 }
 
 .chat .header,
@@ -62,12 +63,12 @@
     color: var(--text-color);
 }
 
-.chat .body .msg{
+.chat .msg{
     margin-top: 10px;
     text-align: left;
 }
 
-.chat .body .my-msg {
+.chat .my-msg {
     margin-top: 10px;
     text-align: right;
 }
@@ -176,4 +177,8 @@ display: table;
 .chat .my-msg .text::-webkit-scrollbar-thumb,
 .chat .footer textarea::-webkit-scrollbar-thumb {
     background: var(--primary-color);
+}
+
+.send-btn {
+    height: 6vh;
 }

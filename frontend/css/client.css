@@ -20,7 +20,7 @@
     --my-video-wrap-width: 360px; /* Safari */
     --my-video-wrap-height: 205px;
     --settings-width: 280px;
-    --chat-width: 320px;
+    --chat-width: 100%;
     --btn-hover-scale: scale(1.1);
 }
 

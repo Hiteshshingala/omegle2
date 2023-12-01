@@ -306,7 +306,7 @@ function openChat() {
     // setAudioStatus(false);
     if(!isMobileDevice) {
         elemDisplay(chat, true);
-        document.documentElement.style.setProperty('--chat-width', '50%');
+        document.documentElement.style.setProperty('--chat-width', '100%');
     }
 }
 
@@ -566,6 +566,9 @@ function handleRemovePeer(config) {
         if (parentNode) {
             // document.body.removeChild(peerMediaElements[peerId].parentNode);
             c_video_top.removeChild(parentNode);
+            while (chatBody.firstChild) {
+                chatBody.removeChild(chatBody.firstChild);
+            }
         } else {
             console.error("Parent node not found.");
         }
@@ -1428,7 +1431,7 @@ function appendMessage(name, msg, className="msg") {
     const div = document.createElement('div');
     const span = document.createElement('span');
     const p = document.createElement('div');
-    div.className = className;
+    div.className = 'chat-container ' + className;
     //span.className = 'from';
     //span.innerText = name + ' ' + getTime();
     p.className = 'text';
