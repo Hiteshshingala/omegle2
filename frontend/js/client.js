@@ -35,19 +35,21 @@ const waitingDivContainer = document.getElementById('waitingDivContainer');
 // const homeBtn = document.getElementById('homeBtn');
 // const endButton = document.getElementById('endButton');
 // const initEndButton = document.getElementById('initEndButton');
-const settings = document.getElementById('settings');
-const settingsCloseBtn = document.getElementById('settingsCloseBtn');
-const audioSource = document.getElementById('audioSource');
-const videoSource = document.getElementById('videoSource');
-const videoQualitySelect = document.getElementById('videoQualitySelect');
-const videoFpsSelect = document.getElementById('videoFpsSelect');
-const maxVideoQualityDiv = document.getElementById('maxVideoQualityDiv');
-const pushToTalkDiv = document.getElementById('pushToTalkDiv');
-const switchMaxVideoQuality = document.getElementById('switchMaxVideoQuality');
-const switchKeepAspectRatio = document.getElementById('switchKeepAspectRatio');
-const switchPushToTalk = document.getElementById('switchPushToTalk');
-const sessionTime = document.getElementById('sessionTime');
+//const settings = document.getElementById('settings');
+//const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+//const audioSource = document.getElementById('audioSource');
+//const videoSource = document.getElementById('videoSource');
+//const videoQualitySelect = document.getElementById('videoQualitySelect');
+//const videoFpsSelect = document.getElementById('videoFpsSelect');
+//const maxVideoQualityDiv = document.getElementById('maxVideoQualityDiv');
+//const pushToTalkDiv = document.getElementById('pushToTalkDiv');
+//const switchMaxVideoQuality = document.getElementById('switchMaxVideoQuality');
+//const switchKeepAspectRatio = document.getElementById('switchKeepAspectRatio');
+//const switchPushToTalk = document.getElementById('switchPushToTalk');
+//const sessionTime = document.getElementById('sessionTime');
 const chat = document.getElementById('chat');
+const c_video_top = document.getElementById('c_video_top');
+const c_video_bottom = document.getElementById('c_video_bottom');
 // const chatOpenBtn = document.getElementById('chatOpenBtn');
 const chatBody = document.getElementById('chatBody');
 const nextBtn = document.getElementById('nextBtn');
@@ -543,7 +545,7 @@ function handleDisconnect() {
         const parentNode = peerMediaElements[peerId].parentNode;
         if (parentNode) {
             // document.body.removeChild(peerMediaElements[peerId].parentNode);
-            document.getElementById("videoElDiv").removeChild(parentNode);
+            c_video_bottom.removeChild(parentNode);
           } else {
             console.error("Parent node not found.");
           }
@@ -563,7 +565,7 @@ function handleRemovePeer(config) {
         const parentNode = peerMediaElements[peerId].parentNode;
         if (parentNode) {
             // document.body.removeChild(peerMediaElements[peerId].parentNode);
-            document.getElementById("videoElDiv").removeChild(parentNode);
+            c_video_top.removeChild(parentNode);
         } else {
             console.error("Parent node not found.");
         }
@@ -651,12 +653,12 @@ function enumerateDevices() {
                 audioDevices: audioDevices,
                 videoDevices: videoDevices,
             });
-            audioDevices.forEach((device) => {
-                addChild(audioSource, device);
-            });
-            videoDevices.forEach((device) => {
-                addChild(videoSource, device);
-            });
+            // audioDevices.forEach((device) => {
+            //     addChild(audioSource, device);
+            // });
+            // videoDevices.forEach((device) => {
+            //     addChild(videoSource, device);
+            // });
         })
         .catch((err) => {
             playSound('error');
@@ -681,33 +683,15 @@ function setLocalMedia(stream) {
     const myVideoHeader = document.createElement('div');
     const myVideoFooter = document.createElement('div');
     const myVideoPeerName = document.createElement('h4');
-    const myFullScreenBtn = document.createElement('button');
-    const myVideoPiPBtn = document.createElement('button');
-    const myVideoRotateBtn = document.createElement('button');
-    const myAudioStatusIcon = document.createElement('button');
-    const myVideoAvatarImage = document.createElement('img');
-    myFullScreenBtn.id = 'myFullScreen';
-    myFullScreenBtn.className = className.fullScreenOn;
-    myVideoPiPBtn.id = 'myVideoPIP';
-    myVideoPiPBtn.className = className.pip;
-    myVideoRotateBtn.id = 'myVideoRotate';
-    myVideoRotateBtn.className = className.rotate;
+
     myVideoHeader.id = 'myVideoHeader';
     myVideoHeader.className = 'videoHeader animate__animated animate__fadeInDown animate__faster';
     myVideoFooter.id = 'myVideoFooter';
     myVideoFooter.className = 'videoFooter';
     myVideoPeerName.id = 'myVideoPeerName';
     myVideoPeerName.innerText = peerName + ' (me)';
-    myAudioStatusIcon.id = 'myAudioStatusIcon';
-    myAudioStatusIcon.className = className.audioOn;
-    myVideoAvatarImage.id = 'myVideoAvatarImage';
-    myVideoAvatarImage.setAttribute('src', image.camOff);
-    myVideoAvatarImage.className = 'videoAvatarImage';
-    myVideoHeader.appendChild(myFullScreenBtn);
-    // myVideoHeader.appendChild(myVideoPiPBtn); // for hide picture in picture functionality
-    myVideoHeader.appendChild(myVideoRotateBtn);
-    myVideoHeader.appendChild(myAudioStatusIcon);
     myVideoFooter.appendChild(myVideoPeerName);
+    
     videoElDiv.id = 'videoElDiv';
     videoElDiv.className = 'videoElDiv';
     myLocalMedia.id = 'myVideo';
@@ -717,24 +701,16 @@ function setLocalMedia(stream) {
     myLocalMedia.muted = true;
     myLocalMedia.volume = 0;
     myLocalMedia.controls = false;
-    myLocalMedia.style.objectFit = config.keepAspectRatio ? 'contain' : 'cover';
+    //myLocalMedia.style.objectFit = config.keepAspectRatio ? 'contain' : 'cover';
     myVideoWrap.id = 'myVideoWrap';
     myVideoWrap.className = 'myVideoWrap';
-    myVideoWrap.appendChild(myVideoHeader);
-    myVideoWrap.appendChild(myVideoFooter);
-    myVideoWrap.appendChild(myVideoAvatarImage);
+    // myVideoWrap.appendChild(myVideoHeader);
+    // myVideoWrap.appendChild(myVideoFooter);
     myVideoWrap.appendChild(myLocalMedia);
-    videoElDiv.appendChild(myVideoWrap);
-    document.body.appendChild(videoElDiv);
+    c_video_bottom.appendChild(myVideoWrap);
+    
     logStreamSettingsInfo('localMediaStream', localMediaStream);
     attachMediaStream(myLocalMedia, localMediaStream);
-    // handlePictureInPicture(myVideoPiPBtn, myLocalMedia);
-    handleVideoRotate(myVideoRotateBtn, myLocalMedia);
-    handleFullScreen(myFullScreenBtn, myVideoWrap, myLocalMedia);
-    setTippy(myFullScreenBtn, 'Toggle full screen', 'bottom');
-    // setTippy(myVideoPiPBtn, 'Toggle picture in picture', 'bottom');
-    setTippy(myVideoRotateBtn, 'Rotate video', 'bottom');
-    setTippy(myAudioStatusIcon, 'Audio status', 'bottom');
     setTippy(myVideoPeerName, 'Username', 'top');
     startSessionTime();
 }
@@ -743,67 +719,38 @@ function setRemoteMedia(stream, peers, peerId) {
     remoteMediaStream = stream;
     const peerName = peers[peerId]['peerName'];
     const peerVideo = peers[peerId]['peerVideo'];
-    const peerAudio = peers[peerId]['peerAudio'];
     const peerScreen = peers[peerId]['peerScreen'];
     const remoteVideoWrap = document.createElement('div');
     const remoteMedia = document.createElement('video');
     const remoteVideoHeader = document.createElement('div');
     const remoteVideoFooter = document.createElement('div');
     const remoteVideoPeerName = document.createElement('h4');
-    const remoteFullScreenBtn = document.createElement('button');
-    const remoteVideoPiPBtn = document.createElement('button');
-    const remoteVideoRotateBtn = document.createElement('button');
-    const remoteAudioStatusIcon = document.createElement('button');
     const remoteVideoAvatarImage = document.createElement('img');
-    const videoElDiv = document.getElementById('videoElDiv');
+    
     remoteVideoHeader.id = peerId + '_remoteVideoHeader';
     remoteVideoHeader.className = 'videoHeader animate__animated animate__fadeInDown animate__faster';
     remoteVideoFooter.id = peerId + '_remoteVideoFooter';
     remoteVideoFooter.className = 'remoteVideoFooter';
     remoteVideoPeerName.id = peerId + '_remotePeerName';
+    remoteVideoPeerName.className = 'remoteVideoPeerName';
     remoteVideoPeerName.innerText = peerName;
-    remoteFullScreenBtn.id = peerId + '_remoteFullScreen';
-    remoteFullScreenBtn.className = className.fullScreenOn;
-    remoteVideoPiPBtn.id = '_remoteVideoPIP';
-    remoteVideoPiPBtn.className = className.pip;
-    remoteVideoRotateBtn.id = '_remoteVideoRotate';
-    remoteVideoRotateBtn.className = className.rotate;
-    remoteAudioStatusIcon.id = peerId + '_remoteAudioStatus';
-    remoteAudioStatusIcon.className = className.audioOn;
-    remoteVideoAvatarImage.id = peerId + '_remoteVideoAvatar';
-    remoteVideoAvatarImage.src = image.camOff;
-    remoteVideoAvatarImage.className = 'videoAvatarImage';
-    remoteVideoHeader.appendChild(remoteFullScreenBtn);
-    // remoteVideoHeader.appendChild(remoteVideoPiPBtn); // for hide picture in picture functionality
-    remoteVideoHeader.appendChild(remoteVideoRotateBtn);
-    remoteVideoHeader.appendChild(remoteAudioStatusIcon);
     remoteVideoFooter.appendChild(remoteVideoPeerName);
     remoteMedia.id = peerId + '_remoteVideo';
     remoteMedia.playsInline = true;
     remoteMedia.autoplay = true;
     remoteMedia.controls = false;
-    remoteMedia.style.objectFit = config.keepAspectRatio ? 'contain' : 'cover';
+    //remoteMedia.style.objectFit = config.keepAspectRatio ? 'contain' : 'cover';
     peerMediaElements[peerId] = remoteMedia;
     remoteVideoWrap.id = peerId + '_remoteVideoWrap';
     remoteVideoWrap.className = 'remoteVideoWrap';
-    remoteVideoWrap.appendChild(remoteVideoHeader);
-    remoteVideoWrap.appendChild(remoteVideoFooter);
-    remoteVideoWrap.appendChild(remoteVideoAvatarImage);
+    // remoteVideoWrap.appendChild(remoteVideoHeader);
+    // remoteVideoWrap.appendChild(remoteVideoFooter);
+    // remoteVideoWrap.appendChild(remoteVideoAvatarImage);
     remoteVideoWrap.appendChild(remoteMedia);
-    videoElDiv.appendChild(remoteVideoWrap);
-    // document.body.appendChild(remoteVideoWrap);
+    c_video_top.appendChild(remoteVideoWrap);
+    
     attachMediaStream(remoteMedia, remoteMediaStream);
-    handleFullScreen(remoteFullScreenBtn, remoteVideoWrap, remoteMedia);
-    // handlePictureInPicture(remoteVideoPiPBtn, remoteMedia);
-    handleVideoRotate(remoteVideoRotateBtn, remoteMedia);
-    handleVideoZoom(remoteMedia, remoteVideoWrap, remoteVideoAvatarImage);
-    setPeerVideoStatus(peerId, peerVideo);
-    setPeerAudioStatus(peerId, peerAudio);
     if (peerVideo && peerScreen) setPeerScreenStatus(peerId, peerScreen);
-    setTippy(remoteFullScreenBtn, 'Toggle full screen', 'bottom');
-    // setTippy(remoteVideoPiPBtn, 'Toggle picture in picture', 'bottom');
-    setTippy(remoteVideoRotateBtn, 'Rotate video', 'bottom');
-    setTippy(remoteAudioStatusIcon, 'Audio status', 'bottom');
     setTippy(remoteVideoPeerName, 'Username', 'top');
 }
 
@@ -879,81 +826,81 @@ function handleEvents() {
     // settingsBtn.onclick = () => {
     //     toggleSettings();
     // };
-    settingsCloseBtn.onclick = () => {
-        toggleSettings();
-    };
-    audioSource.onchange = (e) => {
-        changeMicrophone(e.target.value);
-    };
-    videoSource.onchange = (e) => {
-        changeCamera(e.target.value);
-    };
-    videoQualitySelect.onchange = (e) => {
-        refreshVideoConstraints();
-    };
-    videoFpsSelect.onchange = (e) => {
-        refreshVideoConstraints();
-    };
-    switchMaxVideoQuality.checked = config.forceToMaxVideoAndFps;
-    switchMaxVideoQuality.onchange = (e) => {
-        config.forceToMaxVideoAndFps = e.currentTarget.checked;
-        window.localStorage.forceToMaxVideoAndFps = config.forceToMaxVideoAndFps;
-        refreshVideoConstraints();
-        if (config.forceToMaxVideoAndFps) {
-            popupMessage(
-                'toast',
-                'Max video quality and fps',
-                'If Active, The video resolution will be forced up to 4k and 60fps! (High bandwidth required)',
-                'top',
-                6000,
-            );
-        }
-        playSound('switch');
-    };
-    switchKeepAspectRatio.checked = config.keepAspectRatio;
-    switchKeepAspectRatio.onchange = (e) => {
-        config.keepAspectRatio = e.currentTarget.checked;
-        window.localStorage.keepAspectRatio = config.keepAspectRatio;
-        changeAspectRatio(config.keepAspectRatio);
-        playSound('switch');
-    };
-    if (isMobileDevice) {
-        elemDisplay(maxVideoQualityDiv, false);
-        elemDisplay(pushToTalkDiv, false);
-        document.documentElement.style.setProperty('--chat-width', '100%');
-    } else {
-        switchPushToTalk.onchange = (e) => {
-            isPushToTalkActive = e.currentTarget.checked;
-            if (isPushToTalkActive) {
-                popupMessage(
-                    'toast',
-                    'Push to talk',
-                    'If Active, When SpaceBar keydown the microphone will be activated, otherwise will be deactivated, like a walkie-talkie.',
-                    'top',
-                    6000,
-                );
-            }
-            playSound('switch');
-        };
-        document.onkeydown = (e) => {
-            if (!isPushToTalkActive) return;
-            if (e.code === 'Space') {
-                if (isSpaceDown) return;
-                setAudioStatus(true, audioBtn.event);
-                isSpaceDown = true;
-                console.log('Push-to-talk: audio ON');
-            }
-        };
-        document.onkeyup = (e) => {
-            e.preventDefault();
-            if (!isPushToTalkActive) return;
-            if (e.code === 'Space') {
-                setAudioStatus(false, audioBtn.event);
-                isSpaceDown = false;
-                console.log('Push-to-talk: audio OFF');
-            }
-        };
-    }
+    // settingsCloseBtn.onclick = () => {
+    //     toggleSettings();
+    // };
+    // audioSource.onchange = (e) => {
+    //     changeMicrophone(e.target.value);
+    // };
+    // videoSource.onchange = (e) => {
+    //     changeCamera(e.target.value);
+    // };
+    // videoQualitySelect.onchange = (e) => {
+    //     refreshVideoConstraints();
+    // };
+    // videoFpsSelect.onchange = (e) => {
+    //     refreshVideoConstraints();
+    // };
+    // switchMaxVideoQuality.checked = config.forceToMaxVideoAndFps;
+    // switchMaxVideoQuality.onchange = (e) => {
+    //     config.forceToMaxVideoAndFps = e.currentTarget.checked;
+    //     window.localStorage.forceToMaxVideoAndFps = config.forceToMaxVideoAndFps;
+    //     refreshVideoConstraints();
+    //     if (config.forceToMaxVideoAndFps) {
+    //         popupMessage(
+    //             'toast',
+    //             'Max video quality and fps',
+    //             'If Active, The video resolution will be forced up to 4k and 60fps! (High bandwidth required)',
+    //             'top',
+    //             6000,
+    //         );
+    //     }
+    //     playSound('switch');
+    // };
+    // switchKeepAspectRatio.checked = config.keepAspectRatio;
+    // switchKeepAspectRatio.onchange = (e) => {
+    //     config.keepAspectRatio = e.currentTarget.checked;
+    //     window.localStorage.keepAspectRatio = config.keepAspectRatio;
+    //     changeAspectRatio(config.keepAspectRatio);
+    //     playSound('switch');
+    // };
+    // if (isMobileDevice) {
+    //     elemDisplay(maxVideoQualityDiv, false);
+    //     elemDisplay(pushToTalkDiv, false);
+    //     document.documentElement.style.setProperty('--chat-width', '100%');
+    // } else {
+    //     switchPushToTalk.onchange = (e) => {
+    //         isPushToTalkActive = e.currentTarget.checked;
+    //         if (isPushToTalkActive) {
+    //             popupMessage(
+    //                 'toast',
+    //                 'Push to talk',
+    //                 'If Active, When SpaceBar keydown the microphone will be activated, otherwise will be deactivated, like a walkie-talkie.',
+    //                 'top',
+    //                 6000,
+    //             );
+    //         }
+    //         playSound('switch');
+    //     };
+    //     document.onkeydown = (e) => {
+    //         if (!isPushToTalkActive) return;
+    //         if (e.code === 'Space') {
+    //             if (isSpaceDown) return;
+    //             setAudioStatus(true, audioBtn.event);
+    //             isSpaceDown = true;
+    //             console.log('Push-to-talk: audio ON');
+    //         }
+    //     };
+    //     document.onkeyup = (e) => {
+    //         e.preventDefault();
+    //         if (!isPushToTalkActive) return;
+    //         if (e.code === 'Space') {
+    //             setAudioStatus(false, audioBtn.event);
+    //             isSpaceDown = false;
+    //             console.log('Push-to-talk: audio OFF');
+    //         }
+    //     };
+    // }
     // chatOpenBtn.onclick = () => {
     //     toggleChat();
     // };
@@ -1117,70 +1064,75 @@ function getAudioConstraints() {
 
 function getVideoConstraints(deviceId = false) {
     let videoConstraints = true;
-    elemDisable(videoQualitySelect, config.forceToMaxVideoAndFps);
-    elemDisable(videoFpsSelect, config.forceToMaxVideoAndFps);
-    if (config.forceToMaxVideoAndFps) {
-        videoQualitySelect.selectedIndex = 0;
-        videoFpsSelect.selectedIndex = 0;
-        videoConstraints = {
-            width: { ideal: 3840 },
-            height: { ideal: 2160 },
-            frameRate: { ideal: 60 },
-        };
-    } else {
-        const videoQuality = videoQualitySelect.value;
-        const videoFrameRate = videoFpsSelect.value == 'default' ? 30 : parseInt(videoFpsSelect.value, 10);
-        switch (videoQuality) {
-            case 'default':
-                videoConstraints = {
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 },
-                    frameRate: { ideal: videoFrameRate },
-                };
-                break;
-            case 'qvga':
-                videoConstraints = {
-                    width: { exact: 320 },
-                    height: { exact: 240 },
-                    frameRate: videoFrameRate,
-                };
-                break;
-            case 'vga':
-                videoConstraints = {
-                    width: { exact: 640 },
-                    height: { exact: 480 },
-                    frameRate: videoFrameRate,
-                };
-                break;
-            case 'hd':
-                videoConstraints = {
-                    width: { exact: 1280 },
-                    height: { exact: 720 },
-                    frameRate: videoFrameRate,
-                };
-            case 'fhd':
-                videoConstraints = {
-                    width: { exact: 1920 },
-                    height: { exact: 1080 },
-                    frameRate: videoFrameRate,
-                };
-                break;
-            case '2k':
-                videoConstraints = {
-                    width: { exact: 2560 },
-                    height: { exact: 1440 },
-                    frameRate: videoFrameRate,
-                };
-                break;
-            case '4k':
-                videoConstraints = {
-                    width: { exact: 3840 },
-                    height: { exact: 2160 },
-                    frameRate: videoFrameRate,
-                };
-                break;
-        }
-    }
+    // elemDisable(videoQualitySelect, config.forceToMaxVideoAndFps);
+    // elemDisable(videoFpsSelect, config.forceToMaxVideoAndFps);
+    // if (config.forceToMaxVideoAndFps) {
+    //     videoQualitySelect.selectedIndex = 0;
+    //     videoFpsSelect.selectedIndex = 0;
+    //     videoConstraints = {
+    //         width: { ideal: 3840 },
+    //         height: { ideal: 2160 },
+    //         frameRate: { ideal: 60 },
+    //     };
+    // } else {
+    //     const videoQuality = videoQualitySelect.value;
+    //     const videoFrameRate = videoFpsSelect.value == 'default' ? 30 : parseInt(videoFpsSelect.value, 10);
+    //     switch (videoQuality) {
+    //         case 'default':
+    //             videoConstraints = {
+    //                 width: { ideal: 1280 },
+    //                 height: { ideal: 720 },
+    //                 frameRate: { ideal: videoFrameRate },
+    //             };
+    //             break;
+    //         case 'qvga':
+    //             videoConstraints = {
+    //                 width: { exact: 320 },
+    //                 height: { exact: 240 },
+    //                 frameRate: videoFrameRate,
+    //             };
+    //             break;
+    //         case 'vga':
+    //             videoConstraints = {
+    //                 width: { exact: 640 },
+    //                 height: { exact: 480 },
+    //                 frameRate: videoFrameRate,
+    //             };
+    //             break;
+    //         case 'hd':
+    //             videoConstraints = {
+    //                 width: { exact: 1280 },
+    //                 height: { exact: 720 },
+    //                 frameRate: videoFrameRate,
+    //             };
+    //         case 'fhd':
+    //             videoConstraints = {
+    //                 width: { exact: 1920 },
+    //                 height: { exact: 1080 },
+    //                 frameRate: videoFrameRate,
+    //             };
+    //             break;
+    //         case '2k':
+    //             videoConstraints = {
+    //                 width: { exact: 2560 },
+    //                 height: { exact: 1440 },
+    //                 frameRate: videoFrameRate,
+    //             };
+    //             break;
+    //         case '4k':
+    //             videoConstraints = {
+    //                 width: { exact: 3840 },
+    //                 height: { exact: 2160 },
+    //                 frameRate: videoFrameRate,
+    //             };
+    //             break;
+    //     }
+    // }
+    videoConstraints = {
+                         width: { ideal: 1280 },
+                         height: { ideal: 720 },
+                         frameRate: { ideal: 30 },
+                     };
     if (deviceId) videoConstraints['deviceId'] = deviceId;
     return videoConstraints;
 }
@@ -1458,7 +1410,7 @@ function sendMessage() {
 function emitDcMsg(msg) {
     if (msg) {
         console.log('Send msg: ' + msg);
-        appendMessage(peerName, msg);
+        appendMessage(peerName, msg, 'my-msg');
         Object.keys(dataChannels).map((peerId) =>
             dataChannels[peerId].send(
                 JSON.stringify({
@@ -1472,16 +1424,16 @@ function emitDcMsg(msg) {
     }
 }
 
-function appendMessage(name, msg) {
+function appendMessage(name, msg, className="msg") {
     const div = document.createElement('div');
     const span = document.createElement('span');
-    const p = document.createElement('pre');
-    div.className = 'msg';
-    span.className = 'from';
-    span.innerText = name + ' ' + getTime();
+    const p = document.createElement('div');
+    div.className = className;
+    //span.className = 'from';
+    //span.innerText = name + ' ' + getTime();
     p.className = 'text';
     p.innerText = msg;
-    div.appendChild(span);
+    //div.appendChild(span);
     div.appendChild(p);
     chatBody.appendChild(div);
     chatBody.scrollTop += 500;
@@ -1496,7 +1448,7 @@ function handleMessage(config) {
         elemDisplay(chat, true);
         animateCSS(chat, 'fadeInRight');
     }
-    appendMessage(name, msg);
+    appendMessage(name, msg, 'msg');
 }
 
 function checkLineBreaks() {

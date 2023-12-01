@@ -146,6 +146,7 @@ async function shareRoom() {
 }
 
 function handleBodyEvents() {
+    /*
     checkElements();
     document.body.onmousemove = () => {
         if (buttonsBar.style.display == 'none' && waitingDivContainer.style.display == 'none') {
@@ -154,6 +155,7 @@ function handleBodyEvents() {
             // animateCSS(buttonsBar, 'fadeInUp');
         }
     };
+    */
 }
 
 function checkElements() {
@@ -177,7 +179,7 @@ function startSessionTime() {
     let sessionElapsedTime = 0;
     setInterval(function printTime() {
         sessionElapsedTime++;
-        sessionTime.innerText = secondsToHms(sessionElapsedTime);
+        // sessionTime.innerText = secondsToHms(sessionElapsedTime);
     }, 1000);
 }
 
