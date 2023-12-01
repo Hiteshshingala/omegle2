@@ -27,19 +27,51 @@
         <!--
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
         -->
+        <!-- Bootstrap  : START -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <!-- Bootstrap  : END -->
+        
         <script async src="../js/umami.js"></script>
 
         <script defer src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
         <script defer src="../js/home.js"></script>
     </head>
+
     <body onload="initHome()">
-        <div class="container">
-            <form>
-                <img src="../images/LWOT.png" style="width: 200px; height:200px;margin-left:10px;">
-                <h4 style="font-size:24px;margin-block-start:unset;margin-block-end:unset; margin-bottom:10px;"> Name </h4>
-                <input id="userNameInput" type="text" name="name" maxlength="15" required />
-                <button id="joinBtn">Join</button>
-            </form>
+        <nav class="navbar sticky-top bg-body-tertiary" style="background-color: #f2f2f2 !important;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="../images/LWOT.png" alt="Logo" width="40" height="24" class="d-inline-block align-text-top">
+                    <span style="font-family: 'Poppins' !important; color: #d98799 !important; font-size:x-large; font-weight:bold;">
+                        Nekdy
+                    </span>
+                    <span style="margin-left: 35vw;font-style:italic; color : #1c2e3d !important;">Connecting strangers!</span>
+                </a>
+            </div>
+        </nav>
+        <div class="fs-4" style="margin:15px;">
+            <p class="text-break">
+                In November 2023, Omegle announced its closure for financial and psychological reasons. 
+                The closure of Omegle was a loss for those who wanted to meet new people and learn about 
+                different cultures.
+            </p>
+            <p class="text-break" style="text-align: center;">
+                <b>Nekdy</b> It is a site similar to Omegle. You are paired with a random person 
+                and you can start chatting.
+            </p>
+        </div>
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="card cus_form">
+                <img src="../images/LWOT.png" class="card-img-top" alt="..." style="width: 200px; height:200px;margin-left:10px;align-self:center;">
+                <div class="card-body">
+                    <h5 class="card-title">Name</h5>
+                    <p class="card-text">
+                        <input id="userNameInput" type="text" name="name" maxlength="15" required />
+                    </p>
+                    <button id="joinBtn" class="btn btn-primary cus_button">Join</button>
+                </div>
+            </div>
         </div>
     </body>
 </html>
