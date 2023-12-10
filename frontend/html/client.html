@@ -59,10 +59,28 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <div class="container-fluid">
-        <div class="row align-items-start">
-            <div class="col-lg-6 col-sm-12">
-                <div class="row align-items-start top-video">
-                    <div class="col col-md-12 col-lg-12" id="c_video_top">
+        <nav class="navbar sticky-top bg-body-tertiary" style="background-color: #bdbfbe  !important;">
+            <div class="container-fluid">
+                <a class="navbar-brand text-center header-title m-0 w-100 d-md-flex d-block align-items-center justify-content-between"
+                    style="color: #fff;" href="#">
+                    <div class="d-flex align-items-center justify-content-md-start justify-content-center">
+                        <img src="../images/LWOT.png" alt="Logo" width="40" height="24"
+                            class="d-inline-block align-text-top">
+                        <span
+                            style="font-family: 'Poppins' !important; color: #d98799 !important; font-size:x-large; font-weight:bold;">
+                            Nekdy
+                        </span>
+                    </div>
+                    <span style="font-style:italic; color : #1c2e3d !important;">Connecting
+                        strangers!</span>
+                    <!-- Welcome to Nekdy -->
+                </a>
+            </div>
+        </nav>
+        <div class="row align-items-start client-data">
+            <div class="col-lg-6 col-sm-12 h-100">
+                <div class="row align-items-start h-50">
+                    <div class="col col-md-12 col-lg-12 h-100" id="c_video_top">
                         <div id="loadingDivContainer">
                             <div id="loadingDiv" class="center pulsate">
                                 <h1>Loading...</h1>
@@ -79,44 +97,44 @@
 
                     </div>
                 </div>
-                <div class="row align-items-start bottom-video">
-                    <div class="col col-md-12 col-lg-12" id="c_video_bottom">
+                <div class="row align-items-start h-50">
+                    <div class="col col-md-12 col-lg-12 h-100" id="c_video_bottom">
 
                     </div>
                 </div>
             </div>
+            <div class="col-lg-6 col-sm-12" id="chat">
+                <div class="row align-items-start my-2">
+                    <span class="title">Chat</span>
+                </div>
+                <div class="row align-items-start chat">
+                    <div class="body chat-body" id="chatBody">
+
+                    </div>
+                </div>
+                <div class="row align-items-start" >
+                    <div class="col-md-2">
+                        <div class="row">
+                            <button id="nextBtn" class="nextBtn">Next</button>
+                        </div>
+                        <div class="row">
+                            <button id="stopBtn" class="stopBtn">Stop</button>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea id="chatInput" class="chatInput" placeholder="Write a message..."></textarea>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="chatSendBtn" class="nextBtn send-btn">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="newButtonBarForMobile">
+                <button id="homeBtnForMobile" class="">Next</button>
+                <button id="endButtonForMobile" class="">Stop</button>
+            </div>
             <div class="row">
-                <div class="col-lg-6 col-sm-12" id="chat">
-                    <div class="row align-items-start" style="height: 5vh;">
-                        <span class="title">Chat</span>
-                    </div>
-                    <div class="row align-items-start chat" style="height: 85vh;">
-                        <div class="body" id="chatBody">
-
-                        </div>
-                    </div>
-                    <div class="row align-items-start" style="height: 10vh;">
-                        <div class="col-md-2">
-                            <div class="row">
-                                <button id="nextBtn" class="nextBtn">Next</button>
-                            </div>
-                            <div class="row">
-                                <button id="stopBtn" class="stopBtn">Stop</button>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <textarea id="chatInput" class="chatInput" placeholder="Write a message..."></textarea>
-                        </div>
-                        <div class="col-md-2">
-                            <button id="chatSendBtn" class="nextBtn send-btn">Send</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="newButtonBarForMobile">
-                    <button id="homeBtnForMobile" class="">Next</button>
-                    <button id="endButtonForMobile" class="">Stop</button>
-                </div>
             </div>
         </div>
     </div>

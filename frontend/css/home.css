@@ -20,7 +20,9 @@ body {
     font-family: 'Poppins' !important;
     text-align: center;
 }
-
+.header-title{
+    
+}
 input {
     width: 100%;
     padding: 12px;
