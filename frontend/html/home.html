@@ -1,44 +1,90 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>MiroTalk WebRTC C2C end-to-end encrypted</title>
 
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="description"
-            content="MiroTalk C2C WebRTC real-time cam-2-cam video calls and screen sharing, end-to-end encrypted."
-        />
+<head>
+    <title>Nekdy</title>
 
-        <meta property="og:type" content="app-webrtc" />
-        <meta property="og:site_name" content="MiroTalk C2C" />
-        <meta property="og:title" content="Click the link to join this call." />
-        <meta property="og:description" content="Free WebRTC cam-2-cam video calls." />
-        <meta property="og:image" content="https://c2c.mirotalk.com/images/logo.svg" />
-        <meta property="og:url" content="https://c2c.mirotalk.com" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+    <meta name="description"
+        content="Nekdy is a free online video chat. Talk to random strangers anonymously from the whole world and have a fun together." />
 
-        <link rel="apple-touch-icon" href="../images/favicon.png" />
-        <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
-        <link rel="stylesheet" href="../css/home.css" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nekdy Random Video Chat - Nekdy.com" />
+    <meta property="og:description" content="Free WebRTC cam-2-cam video calls." />
+    <meta property="og:url" content="https://www.nekdy.com" />
+    <meta property="og:site_name" content="Nekdy" />
+    <meta property="og:image" content="https://c2c.mirotalk.com/images/logo.svg" /> <!-- Replace with our logo-->
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:label1" content="Est. reading time" />
+    <meta name="twitter:data1" content="1 minute" />
+
+    <link rel="apple-touch-icon" href="../images/LWOT.png" />
+    <link rel="icon" type="image/x-icon" href="../images/LWOT.png" />
+    <link rel="stylesheet" href="../css/home.css" />
+    <!--
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+        -->
+    <!-- Bootstrap  : START -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap  : END -->
 
-        <script async src="../js/umami.js"></script>
+    <script async src="../js/umami.js"></script>
 
-        <script defer src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
-        <script defer src="../js/home.js"></script>
-    </head>
-    <body onload="initHome()">
-        <form>
-            <!-- <label for="room">Room</label>
-            <input id="roomIdInput" type="text" name="room" maxlength="36" required /> -->
-            <label for="username">Username</label>
-            <input id="userNameInput" type="text" name="name" maxlength="15" required />
-            <button id="joinBtn">Join</button>
-            <!-- <div class="supportDiv">
-                <p>Empower MiroTalk: Your Support Makes the Difference!</p>
-                <button id="supportBtn"><i class="fas fa-heart"></i> Support us</button>
-            </div> -->
-        </form>
-    </body>
+    <script defer src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
+    <script defer src="../js/home.js"></script>
+</head>
+
+<body onload="initHome()">
+    <nav class="navbar sticky-top bg-body-tertiary" style="background-color: #bdbfbe  !important;">
+        <div class="container-fluid">
+            <a class="navbar-brand text-center header-title m-0 w-100 d-md-flex d-block align-items-center justify-content-between" style="color: #fff;" href="#">
+                <div class="d-flex align-items-center justify-content-md-start justify-content-center">
+                    <img src="../images/LWOT.png" alt="Logo" width="40" height="24"
+                        class="d-inline-block align-text-top">
+                    <span
+                        style="font-family: 'Poppins' !important; color: #d98799 !important; font-size:x-large; font-weight:bold;">
+                        Nekdy
+                    </span>
+                </div>
+                <span style="font-style:italic; color : #1c2e3d !important;">Connecting
+                    strangers!</span>
+                <!-- Welcome to Nekdy -->
+            </a>
+        </div>
+    </nav>
+    <div class="fs-6 p-md-4 p-3">
+        <p class="text-break">
+            In November 2023, Omegle announced its closure for financial and psychological reasons.
+            The closure of Omegle was a loss for those who wanted to meet new people and learn about
+            different cultures.
+        </p>
+        <p class="text-break" style="text-align: center;">
+            <b>Nekdy</b> It is a site similar to Omegle. You are paired with a random person
+            and you can start chatting.
+        </p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card cus_form">
+            <img src="../images/LWOT.png" class="card-img-top" alt="..."
+                style="width: 200px; height:200px;margin-left:10px;align-self:center;">
+            <div class="card-body">
+                <h5 class="card-title">Name</h5>
+                <p class="card-text">
+                    <input id="userNameInput" type="text" name="name" maxlength="15" required />
+                </p>
+                <button id="joinBtn" class="btn btn-primary cus_button">Join</button>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
