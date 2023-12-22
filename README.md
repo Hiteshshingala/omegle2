@@ -1,4 +1,4 @@
-<h1 align="center">MiroTalk C2C</h1>
+<!-- <h1 align="center">MiroTalk C2C</h1> -->
 
 <br />
 
