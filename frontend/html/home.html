@@ -37,6 +37,23 @@
         crossorigin="anonymous"></script>
     <!-- Bootstrap  : END -->
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYHQWWDQSM"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HYHQWWDQSM');
+    function joinButtonClickEventHandle() {
+      gtag('event', 'join_call', {
+        'event_category': 'category_name',
+        'event_label': 'label_value',
+        'value': 1 // Numeric value associated with the event
+      });
+    }
+    </script>
+
     <script async src="../js/umami.js"></script>
 
     <script defer src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
@@ -81,7 +98,7 @@
                 <p class="card-text">
                     <input id="userNameInput" type="text" name="name" maxlength="15" required />
                 </p>
-                <button id="joinBtn" class="btn btn-primary cus_button">Join</button>
+                <button id="joinBtn" onclick="joinButtonClickEventHandle()" class="btn btn-primary cus_button">Join</button>
             </div>
         </div>
     </div>
